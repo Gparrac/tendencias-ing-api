@@ -7,7 +7,9 @@ class MarkService {
         const data = await catService.getProductsByCategory(category,country);
         const cleanData = data.results.map(item =>{
             if(item?.attributes?.length>0){        
-                return item.attributes[0].value_name.toUpperCase();
+                if (item.attributes[0].value_name){                    
+                    return item.attributes[0].value_name.toUpperCase();
+                }
             }
         })
         return cleanData.reduce((prev, cur) => ((prev[cur] = prev[cur] + 1 || 1), prev), {})        

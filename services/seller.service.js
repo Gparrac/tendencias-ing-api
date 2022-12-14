@@ -40,11 +40,14 @@ class SellerService{
     async  bestSeller(country, category){
         try{
             const sellers = await this.sellersByCategory(country,category)
+            const dataCat = await catServ.getCategory(country,category);
             const sellersPositive = sellers.map(item =>{
                 return (item.media)
             })
             const max = Math.max(...sellersPositive)
-            return sellers.find(item => item.media == max)
+             const rta = sellers.find(item => item.media == max)
+             rta.category = dataCat.name
+             return rta
         }catch(err){
             throw err;
         }
@@ -54,11 +57,14 @@ class SellerService{
     async  worstSeller(country, category){
         try{
             const sellers = await this.sellersByCategory(country,category)
+            const dataCat = await catServ.getCategory(country,category);
             const sellersPositive = sellers.map(item =>{
                 return (item.media)
             })
             const min = Math.min(...sellersPositive)
-            return sellers.find(item => item.media == min)
+            const rta = sellers.find(item => item.media == min)
+            rta.category = dataCat.name
+            return rta
         }catch(err){
             throw err;
         }

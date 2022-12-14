@@ -31,5 +31,12 @@ class CategoryService {
         throw err;
       }
     }
+  async getCategory(country,category){
+    
+    const all = await this.allCategories(country,category)
+    const dataCat = all.find(({id}) => id == category);
+    return dataCat
+
+  }
 }
 module.exports = CategoryService;
